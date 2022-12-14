@@ -26,6 +26,8 @@ public class PgyForAndroidPlugin implements FlutterPlugin, MethodCallHandler {
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
+    } if (call.method.equals("getBaseUrl")) {
+      result.success("https://www.pgyer.com");
     } else {
       result.notImplemented();
     }

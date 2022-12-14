@@ -26,4 +26,8 @@ abstract class PgyForAndroidPlatform extends PlatformInterface {
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
+  Future<String?> getBaseUrl() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
 }

@@ -14,4 +14,10 @@ class MethodChannelPgyForAndroid extends PgyForAndroidPlatform {
     final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
+
+  @override
+  Future<String?> getBaseUrl() async {
+    final baseUrl = await methodChannel.invokeMethod<String>('getBaseUrl');
+    return baseUrl;
+  }
 }
