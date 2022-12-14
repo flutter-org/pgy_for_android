@@ -16,13 +16,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
   final _pgyForAndroidPlugin = PgyForAndroid();
+  String _platformVersion = 'Unknown';
+  String _baseUrl = 'Unknown';
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
+    getBaseUrl();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -31,8 +33,7 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _pgyForAndroidPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      platformVersion = await _pgyForAndroidPlugin.getPlatformVersion() ?? 'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -47,6 +48,15 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<void> getBaseUrl() async {
+    String? baseUrl = await _pgyForAndroidPlugin.getBaseUrl();
+    if (baseUrl != null) {
+      setState(() {
+        _baseUrl = baseUrl;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,7 +65,12 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              Text('Running on: $_platformVersion\n'),
+              Text('GetBaseUrl: $_baseUrl'),
+            ],
+          ),
         ),
       ),
     );
